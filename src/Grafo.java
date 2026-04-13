@@ -53,22 +53,19 @@ public class Grafo {
     private void exibirResultado(String origem, String destino, Map<String, Integer> d, Map<String, String> pi) {
         System.out.println("Rota: " + origem + " -> " + destino);
 
-        if (!d.containsKey(destino) || d.get(destino) == Integer.MAX_VALUE) {
-            System.out.println("Nenhuma rota encontrada entre " + origem + " e " + destino + ".\n");
-            return;
-        }
-
-        List<String> caminho = new ArrayList<>();
+        String caminhoFinal = "";
         String atual = destino;
 
         while (atual != null) {
-            caminho.add(atual);
+            if (caminhoFinal.equals("")) {
+                caminhoFinal = atual;
+            } else {
+                caminhoFinal = atual + " -> " + caminhoFinal;
+            }
             atual = pi.get(atual);
         }
 
-        Collections.reverse(caminho);
-
-        System.out.println("Caminho percorrido: " + String.join(" -> ", caminho));
+        System.out.println("Caminho percorrido: " + caminhoFinal);
         System.out.println("Número de paradas: " + d.get(destino) + "\n");
     }
 }
